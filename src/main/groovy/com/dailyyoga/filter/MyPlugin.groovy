@@ -12,7 +12,7 @@ class MyPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
 
-        project.extensions.create('fileSizeExt', FileSizeExtension)
+        project.extensions.create('fileFilterExt', FileSizeExtension)
 
         project.tasks.create('FileFilterTask', FileSizeTask)
     }

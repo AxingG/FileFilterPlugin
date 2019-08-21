@@ -1,9 +1,10 @@
-plugins {
-    id 'groovy'
-}
+apply plugin: 'groovy'
+apply plugin: 'maven'
 
-group 'com.dailyyoga.gradle'
-version '1.0-SNAPSHOT'
+
+group = 'com.dailyyoga.gradle'
+version = '1.0-SNAPSHOT'
+archivesBaseName = 'FileFilterPlugin'
 
 repositories {
     mavenCentral()
