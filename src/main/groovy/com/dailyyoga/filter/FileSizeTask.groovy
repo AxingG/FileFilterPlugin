@@ -26,10 +26,10 @@ class FileSizeTask extends DefaultTask {
                 }
                 def fileTree = null
                 try {
-                    fileTree = currentProject.fileTree(currentResPath)
-                } catch (Exception e) {
-                    e.printStackTrace()
 
+                    fileTree = currentProject.fileTree(currentResPath)
+                } catch (FileNotFoundException e) {
+                    System.println(e.getMessage())
                 }
                 if (fileTree != null) {
                     fileTree.dir.eachDir { File subFile ->
