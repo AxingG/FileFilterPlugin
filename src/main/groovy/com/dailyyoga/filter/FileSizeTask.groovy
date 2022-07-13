@@ -20,11 +20,11 @@ class FileSizeTask extends DefaultTask {
             Map<String, String> resPath = project.extensions.fileFilterExt.resPath
             project.rootProject.childProjects.each { Map.Entry entry ->
                 Project currentProject = entry.value
-                def currentResPath = 'src/main/res'
-                if (resPath?.containsKey(currentProject.name)) {
-                    currentResPath = resPath.get(currentProject.name)
-                }
-                try {
+                if (currentProject.name == "yoga_h2") {
+                    def currentResPath = 'src/main/res'
+                    if (resPath?.containsKey(currentProject.name)) {
+                        currentResPath = resPath.get(currentProject.name)
+                    }
                     def fileTree = currentProject.fileTree(currentResPath)
                     if (fileTree != null) {
                         fileTree.dir.eachDir { File subFile ->
@@ -37,13 +37,7 @@ class FileSizeTask extends DefaultTask {
                                 }
                             }
                             if (bigResource.size() > 0) {
-                                def file = bigResource[0]
-                                def path = file.path
-                                def index = path.lastIndexOf('\\')
-                                if (index != -1) {
-                                    path = path.substring(0, index)
-                                }
-                                def str = "${bigResource.size()}个资源文件过大\r\n文件路径:$path\r\n"
+                                def str = "\r\n文件路径:${fileTree.dir}/${subFile.name}\r\n${bigResource.size()}个资源文件过大\r\n"
                                 bigResource.each { File bigFile ->
                                     def size = bigFile.size() / 1000
                                     str += "文件名：$bigFile.name 文件大小：${size}kb\r\n"
@@ -52,8 +46,6 @@ class FileSizeTask extends DefaultTask {
                             }
                         }
                     }
-                } catch (Throwable e) {
-                    println("文件未找到：" + currentProject.name)
                 }
             }
         }
